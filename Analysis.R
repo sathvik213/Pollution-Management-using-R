@@ -94,15 +94,12 @@ plot_list <- lapply(unique(data_long$variable), function(var) {
 
 # plot the ggplot objects in a grid
 gridExtra::grid.arrange(grobs = plot_list, ncol = 3)
-save.image('distribution plot')
-
-data_for_CO_viz=data[1:200,]
+#the plot is saved manually in the directory
+data_for_CO_viz=data[1:length(data['ozone'])-2000,]
 data_for_CO_viz$carbon_monoxide=data_for_CO_viz$carbon_monoxide/1.0
 
 data_for_CO_viz$timestamp=as.POSIXct(data_for_CO_viz$timestamp, format = '%Y-%m-%d %H:%M:%S')
 
-ggplot(data_for_CO_viz, aes(x='timestamp',y='carbon_monoxide')) +
-    geom_line() +
-    labs(x = "Timestamp", y = "Carbon Monoxide") +
-    theme_bw()
+plot(as.numeric(data_for_CO_viz$carbon_monoxide),type = 'l', xlab='Time',ylab='co')
+
   
