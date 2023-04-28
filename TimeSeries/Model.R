@@ -57,37 +57,24 @@ plot(as.numeric(data$carbon_monoxide),type = 'l', xlab='Time',ylab='co')
 
 #Fitting ARIMA model 
 series_data <- ts(train_data$carbon_monoxide, frequency = 288, start = c(2014, 8, 1))
+series_data_test<-ts(test_data$carbon_monoxide, frequency = 288, start = c(2014, 8, 1))
 
 # Fit an ARIMA model with (1,1,1) values of p,q,r
-arima_model_1 <- arima(ts_data, order = c(1, 1, 1))
-
-# View the model summary
-summary(arima_model_1)
-#MAPE=3.779252
-##############################################################################
-
+arima_model_1 <- arima(series_data, order = c(1, 1, 1))
 # Fit an ARIMA model with (1,2,2) values of p,q,r
-arima_model_2 <- arima(ts_data, order = c(1,2,2))
-
-# View the model summary
-summary(arima_model_2)
-
-#MAPE=3.77436 
-##############################################################################
-
+arima_model_2 <- arima(series_data, order = c(1,2,2))
 # Fit an ARIMA model with (2,1,2) values of p,q,r
-arima_model_3 <- arima(ts_data, order = c(2, 1, 2))
-
-# View the model summary
-summary(arima_model_3)
-#MAPE=3.779084
-##############################################################################
-
+arima_model_3 <- arima(series_data, order = c(2, 1, 2))
 # Fit an ARIMA model with (3,1,1) values of p,q,r
-arima_model_4 <- arima(ts_data, order = c(3,1,1))
+arima_model_4 <- arima(series_data, order = c(3,1,1))
 
-# View the model summary
-summary(arima_model_4)
-#MAPE=3.777577
-##############################################################################
+
+#____________________________________________________________________
+# Apply ARIMA model on test data
+arima_pred <- forecast(arima_model_2, length(series_data_test))
+print(arima_pred)
+diff <- series_data_test - arima_pred
+# Calculate MAPE
+MAPE <- mean(abs(diff/series_data_test)) * 100
+#____________________________________________________________________
 
