@@ -19,7 +19,7 @@ library(stats)
 path <- getwd()
 
 # Set the working directory to the "data" directory
-setwd(paste0(path, "/data"))
+# setwd(paste0(path, "/data"))
 
 # Read the CSV file into a data frame
 data <- read.csv("pollutionData209960.csv")

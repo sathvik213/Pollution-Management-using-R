@@ -1,0 +1,8 @@
+pollutionData206422.csv	
+From: 2014-08-01 00:05:00	To: 2014-10-01 00:00:00	link
+Ozone: link
+Particulate Matter: link
+Carbon Monoxide: link
+Sulfur Dioxide: link
+Nitrogen Dioxide: link
+Location (latitude, longitude): 56.16254304778694,10.125912580356612
