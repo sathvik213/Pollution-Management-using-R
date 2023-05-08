@@ -48,9 +48,10 @@ arima_model_3 <- arima(train_ts, order = c(2, 1, 2))
 # Fit an ARIMA model with (3,1,1) values of p,q,r
 arima_model_4 <- arima(train_ts, order = c(3,1,1))
 ###########################################################
-#                                    Hi 95
+
 
 sample_forecast=forecast(arima_model_1,h=length(test_data))
+print(sample_forecast)
 # Point Forecast    Lo 80    Hi 80    Lo 95    Hi 95
 # 60.17014      100.85570 96.74076 104.9706 94.56245 107.1489
 # 60.17361      100.72365 94.94513 106.5022 91.88616 109.5611
