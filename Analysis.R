@@ -81,8 +81,31 @@ data_without_categoricals=subset(data,select = c(1:5))
 #finds the correlation values of features with eachother
 correlation=cor(data_without_categoricals)
 
+
+columns_to_check <- colnames(data_without_categoricals)
+detect_outliers <- function(vector, k = 1.5) {
+  q1 <- quantile(vector, 0.25)
+  q3 <- quantile(vector, 0.75)
+  iqr <- q3 - q1
+  fence_low <- q1 - k * iqr
+  fence_high <- q3 + k * iqr
+  outliers <- vector < fence_low | vector > fence_high
+  return(outliers)
+}
+
+
+
+# Detecting outliers in the dataframe
+outliers <- lapply(data_without_categoricals[columns_to_check], detect_outliers)
+data_without_categoricals_cleaned <- data_without_categoricals
+for (col in columns_to_check) {
+  data_without_categoricals_cleaned <- data_without_categoricals[!outliers[[col]], ]
+}
+# dim(data_without_categoricals_cleaned)
+# [1] 17568     5
+
 #Finding distribution plots for each feature using subplot 
-data_long <- data_without_categoricals %>%
+data_long <- data_without_categoricals_cleaned %>%
   pivot_longer(everything(), names_to = "variable", values_to = "value")
 # create a list of ggplot objects, one for each variable
 plot_list <- lapply(unique(data_long$variable), function(var) {
